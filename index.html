@@ -740,6 +740,116 @@
     flex-shrink: 0;
   }
 
+  /* ── COUNTDOWN ── */
+  .countdown {
+    background: var(--yellow);
+    border-top: 3px solid var(--black);
+    border-bottom: 3px solid var(--black);
+    padding: 80px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .countdown::before {
+    content: '';
+    position: absolute;
+    top: -40px; left: -40px;
+    width: 160px; height: 160px;
+    background: var(--peach);
+    border: 2px solid var(--black);
+    border-radius: 50%;
+    opacity: 0.6;
+  }
+  .countdown::after {
+    content: '';
+    position: absolute;
+    bottom: -50px; right: -50px;
+    width: 200px; height: 200px;
+    background: var(--mint);
+    border: 2px solid var(--black);
+    border-radius: 50%;
+    opacity: 0.6;
+  }
+  .countdown-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .countdown .badge {
+    background: var(--black);
+    color: var(--yellow);
+    border-color: var(--black);
+  }
+  .countdown h2 {
+    font-size: clamp(28px, 4.5vw, 44px);
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    margin: 20px 0 14px;
+  }
+  .countdown p.sub {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 40px;
+    font-weight: 600;
+  }
+  .countdown-timer {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+  }
+  .timer-box {
+    background: var(--black);
+    border: 3px solid var(--black);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    min-width: 110px;
+    padding: 22px 14px 16px;
+    color: var(--yellow);
+  }
+  .timer-box .num {
+    font-size: clamp(36px, 6vw, 56px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+  }
+  .timer-box .label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: #C8C8C8;
+    margin-top: 10px;
+    text-transform: uppercase;
+  }
+  .countdown-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    border: 2px solid var(--black);
+    border-radius: 100px;
+    padding: 10px 22px;
+    font-size: 14px;
+    font-weight: 800;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 28px;
+  }
+  .countdown-meta .seats {
+    color: var(--red);
+  }
+  .countdown .btn {
+    background: var(--black);
+    color: var(--yellow);
+  }
+  @media (max-width: 540px) {
+    .timer-box { min-width: calc(50% - 7px); }
+  }
+
   /* ── FAQ ── */
   .faq { background: var(--cream-2); }
   .faq-list {
@@ -871,7 +981,7 @@
 <!-- ── NAV ── -->
 <nav class="nav">
   <div class="nav-inner">
-    <div class="logo"><span class="dot"></span>캐리퀸 LAB</div>
+    <div class="logo"><span class="dot"></span>캐리퀸닷컴</div>
     <div class="nav-menu">
       <a href="#problem">왜 지금인가</a>
       <a href="#curri">커리큘럼</a>
@@ -1239,7 +1349,30 @@
   </div>
 </section>
 
-<!-- ── 10. FAQ ── -->
+<!-- ── 10. COUNTDOWN ── -->
+<section class="countdown" id="countdown">
+  <div class="countdown-inner">
+    <span class="badge">⏰ LIMITED TIME</span>
+    <h2>무료특강 모집 마감까지</h2>
+    <p class="sub">선착순 100명 한정. 마감 이후 다음 기수까지 3개월 대기.</p>
+
+    <div class="countdown-timer" id="timer">
+      <div class="timer-box"><div class="num" id="d-days">00</div><div class="label">Days</div></div>
+      <div class="timer-box"><div class="num" id="d-hours">00</div><div class="label">Hours</div></div>
+      <div class="timer-box"><div class="num" id="d-mins">00</div><div class="label">Minutes</div></div>
+      <div class="timer-box"><div class="num" id="d-secs">00</div><div class="label">Seconds</div></div>
+    </div>
+
+    <div class="countdown-meta">
+      🔥 잔여 <span class="seats" id="seats-left">23</span>석 / 총 100석
+    </div>
+    <div>
+      <a class="btn" href="#apply">지금 자리 잡기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── 11. FAQ ── -->
 <section class="section faq" id="faq">
   <div class="container">
     <div class="section-head">
@@ -1286,7 +1419,7 @@
       당신도 늦지 않았습니다.
     </h2>
     <p class="lead">2026년 1기 무료특강 · 선착순 100명 한정</p>
-    <div class="deadline">⏰ 모집 마감까지 D-3 · 잔여 23석</div>
+    <div class="deadline" id="final-deadline">⏰ 모집 마감까지 D-3 · 잔여 23석</div>
     <div>
       <a class="btn" href="#" onclick="alert('신청 폼 연결 예정'); return false;">
         지금 무료로 신청하기 →
@@ -1298,8 +1431,47 @@
 
 <!-- ── FOOTER ── -->
 <footer class="footer">
-  © 2026 <strong>캐리퀸 LAB</strong> · 사업자등록번호 000-00-00000 · 통신판매업신고 0000-서울00-0000
+  © 2026 <strong>캐리퀸닷컴</strong> · 사업자등록번호 000-00-00000 · 통신판매업신고 0000-서울00-0000
 </footer>
+
+<script>
+  // ⏰ 무료특강 마감 일시 설정 (여기만 수정하시면 됩니다)
+  // 형식: 'YYYY-MM-DDTHH:mm:ss' (한국 시간 기준)
+  const DEADLINE = '2026-06-15T23:59:59+09:00';
+  const SEATS_LEFT = 23; // 잔여 좌석
+
+  const $ = (id) => document.getElementById(id);
+  const pad = (n) => String(Math.max(0, n)).padStart(2, '0');
+
+  function tick() {
+    const now = new Date();
+    const end = new Date(DEADLINE);
+    const diff = end - now;
+
+    if (diff <= 0) {
+      ['d-days','d-hours','d-mins','d-secs'].forEach(id => { if($(id)) $(id).textContent = '00'; });
+      if ($('final-deadline')) $('final-deadline').textContent = '⏰ 모집이 마감되었습니다';
+      return;
+    }
+
+    const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const mins  = Math.floor((diff / (1000 * 60)) % 60);
+    const secs  = Math.floor((diff / 1000) % 60);
+
+    if ($('d-days'))  $('d-days').textContent  = pad(days);
+    if ($('d-hours')) $('d-hours').textContent = pad(hours);
+    if ($('d-mins'))  $('d-mins').textContent  = pad(mins);
+    if ($('d-secs'))  $('d-secs').textContent  = pad(secs);
+
+    if ($('final-deadline')) {
+      $('final-deadline').textContent = `⏰ 모집 마감까지 D-${days} · 잔여 ${SEATS_LEFT}석`;
+    }
+    if ($('seats-left')) $('seats-left').textContent = SEATS_LEFT;
+  }
+  tick();
+  setInterval(tick, 1000);
+</script>
 
 </body>
 </html>
